@@ -1,7 +1,7 @@
+import { withProdivers } from "@providers/withProviders";
 import "./App.css";
 
-function App() {
-  return <div>Hello world</div>;
-}
+// eslint-disable-next-line react-refresh/only-export-components
+const AppComponent = () => <div>Hello world</div>;
 
-export default App;
+export const App = withProdivers(AppComponent);
