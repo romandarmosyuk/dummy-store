@@ -1,7 +1,9 @@
 import { withProdivers } from "@providers/withProviders";
 import "./App.module.scss";
+import { RouterProvider } from "react-router/dom";
+import { router } from "@routes/router";
 
 // eslint-disable-next-line react-refresh/only-export-components
-const AppComponent = () => <div>Hello world</div>;
+const AppComponent = () => <RouterProvider router={router} />;
 
 export const App = withProdivers(AppComponent);
