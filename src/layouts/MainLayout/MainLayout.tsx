@@ -1,10 +1,11 @@
 import { Header } from "@components/Header";
+import { Outlet } from "react-router";
 
 export const MainLayout = () => {
   return (
     <>
       <Header />
-      <div>Тут будет главная</div>
+      <Outlet />
     </>
   );
 };
