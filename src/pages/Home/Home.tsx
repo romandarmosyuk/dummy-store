@@ -1,13 +1,15 @@
-import { api } from "@api/api";
-import { HStack, Stack } from "@chakra-ui/react";
+import { HStack } from "@chakra-ui/react";
 import { CardItem } from "@components/CardItem";
-import { useQuery } from "@tanstack/react-query";
+import { ProductsPagination } from "@components/ProductsPagination";
+import { useProductsQuery } from "@hooks/useProductsQuery";
 
-function getProducts() {
-  return api.get("/products").then((res) => res.data);
-}
+import { useState } from "react";
 
 export const Home = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const limit = 30;
+
   const {
     data,
     isLoading,
@@ -17,17 +19,15 @@ export const Home = () => {
     fetchStatus, // индикация загрузки
     error,
     isError,
-  } = useQuery({
-    queryKey: ["products"],
-    queryFn: getProducts, // isAuth ? getProduct : skipToken на случай, если enabled не подходит
-    staleTime: 5000,
-    gcTime: 10000, // время хранения данных в кеше. При зазмонтировании страницы данные удаляются
-    retry: 1, //количество повторных попыток запроса при ошибке
-    // enabled: isAuth вызов стейта по условию, тк useState нельзя было вызывать из условий. Можно сделать зависимость одного запроса от другого !!userData (waterfall)
-  });
+  } = useProductsQuery({ page: currentPage, limit });
 
-  const products = data?.products ?? [];
-  console.log(data);
+  if (!data) return;
+
+  const products = data.products;
+  const totalProducts = data.total;
+
+  const totalPage = Math.ceil(totalProducts / limit);
+  console.log(products);
 
   return (
     <div>
@@ -38,11 +38,22 @@ export const Home = () => {
       {isLoading && <div>Loading...</div>}
       {isPending && <div>Pending ...</div>}
       {isFetching && <div>Fetching...</div>}
-      <HStack wrap="wrap" justifyContent="center" alignItems="stretch" gap="4">
+      <HStack
+        wrap="wrap"
+        justifyContent="center"
+        alignItems="stretch"
+        gap="4"
+        pb="4"
+      >
         {products.map((product) => (
           <CardItem key={product.id} product={product} />
         ))}
       </HStack>
+      <ProductsPagination
+        page={currentPage}
+        setPage={setCurrentPage}
+        totalPage={totalPage}
+      />
     </div>
   );
 };

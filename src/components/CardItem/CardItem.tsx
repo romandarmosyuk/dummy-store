@@ -1,7 +1,13 @@
 import { Card, Image, Button, Text, HStack } from "@chakra-ui/react";
 import { IconStar } from "@components/ui/icons/IconStar";
+import type { Product } from "@interfaces/Products";
 
-export const CardItem = ({ product }) => {
+interface CardItemProps {
+  key: number;
+  product: Product;
+}
+
+export const CardItem = ({ product }: CardItemProps) => {
   return (
     <Card.Root size="sm" maxW="200px" overflow="hidden" variant="subtle">
       <Image src={product.thumbnail} alt={product.title} />
