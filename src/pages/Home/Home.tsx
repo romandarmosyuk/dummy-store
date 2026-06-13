@@ -1,4 +1,6 @@
 import { api } from "@api/api";
+import { HStack, Stack } from "@chakra-ui/react";
+import { CardItem } from "@components/CardItem";
 import { useQuery } from "@tanstack/react-query";
 
 function getProducts() {
@@ -7,7 +9,7 @@ function getProducts() {
 
 export const Home = () => {
   const {
-    data: products,
+    data,
     isLoading,
     isFetching,
     isPending,
@@ -24,7 +26,8 @@ export const Home = () => {
     // enabled: isAuth вызов стейта по условию, тк useState нельзя было вызывать из условий. Можно сделать зависимость одного запроса от другого !!userData (waterfall)
   });
 
-  console.log(products);
+  const products = data?.products ?? [];
+  console.log(data);
 
   return (
     <div>
@@ -35,7 +38,11 @@ export const Home = () => {
       {isLoading && <div>Loading...</div>}
       {isPending && <div>Pending ...</div>}
       {isFetching && <div>Fetching...</div>}
-      <h2>Это домашняя</h2>
+      <HStack wrap="wrap" justifyContent="center" alignItems="stretch" gap="4">
+        {products.map((product) => (
+          <CardItem key={product.id} product={product} />
+        ))}
+      </HStack>
     </div>
   );
 };
