@@ -42,6 +42,7 @@ export const useDebouncedSearchParams = ({
     return () => {
       clearTimeout(timer);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [delay, key, value, setSearchParams]);
 
   return { value, setValue };

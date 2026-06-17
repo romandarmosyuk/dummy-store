@@ -1,16 +1,18 @@
-import { Card, Image, Button, Text, HStack } from "@chakra-ui/react";
+import { Card, Image, Button, Text, HStack, Skeleton } from "@chakra-ui/react";
 import { IconStar } from "@components/ui/icons/IconStar";
 import type { Product } from "@interfaces/Products";
 
 interface CardItemProps {
-  key: number;
   product: Product;
+  isFetching: boolean;
 }
 
-export const CardItem = ({ product }: CardItemProps) => {
+export const CardItem = ({ product, isFetching }: CardItemProps) => {
   return (
-    <Card.Root size="sm" maxW="200px" overflow="hidden" variant="subtle">
-      <Image src={product.thumbnail} alt={product.title} />
+    <Card.Root size="sm" w="200px" overflow="hidden" variant="subtle">
+      <Skeleton h="200px" loading={isFetching}>
+        <Image src={product.thumbnail} alt={product.title} />
+      </Skeleton>
       <Card.Body gap="2">
         <Text textStyle="2xl" fontWeight="medium" letterSpacing="tight" mt="2">
           ${product.price}

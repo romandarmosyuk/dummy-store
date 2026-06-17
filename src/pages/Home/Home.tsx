@@ -42,8 +42,6 @@ export const Home = () => {
 
   return (
     <div>
-      {isError && <div>Error: {error.message}</div>}
-
       {status}
       {fetchStatus}
       {isLoading && <div>Loading...</div>}
@@ -54,10 +52,14 @@ export const Home = () => {
         justifyContent="center"
         alignItems="stretch"
         gap="4"
-        pb="4"
+        py="4"
       >
         {products.map((product) => (
-          <CardItem key={product.id} product={product} />
+          <CardItem
+            key={product.id}
+            product={product}
+            isFetching={isFetching}
+          />
         ))}
       </HStack>
       <ProductsPagination page={page} setPage={setPage} totalPage={totalPage} />
