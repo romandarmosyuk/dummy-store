@@ -1,9 +1,16 @@
 import { Button, Flex, Input, InputGroup, Text } from "@chakra-ui/react";
 import { ColorModeButton } from "@components/ui/color-mode";
+import { URL_OPTIONAL_SEARCH } from "@consts/url";
+import { useDebouncedSearchParams } from "@hooks/useDebouncedSearchParams";
 import { LuSearch } from "react-icons/lu";
 import { Link } from "react-router";
 
 export const Header = () => {
+  const { value, setValue } = useDebouncedSearchParams({
+    key: URL_OPTIONAL_SEARCH,
+    delay: 1000,
+  });
+
   return (
     <Flex as="header" gapX="4" bg="gray.100" p="4">
       <Link to="/">
@@ -12,7 +19,13 @@ export const Header = () => {
         </Text>
       </Link>
       <InputGroup startElement={<LuSearch />}>
-        <Input name="search" bgColor="white" placeholder="Search by product" />
+        <Input
+          name="search"
+          bgColor="white"
+          placeholder="Search by product"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        />
       </InputGroup>
       <Button>Log in</Button>
       <ColorModeButton />

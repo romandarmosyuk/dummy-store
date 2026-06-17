@@ -1,14 +1,22 @@
 import { HStack } from "@chakra-ui/react";
 import { CardItem } from "@components/CardItem";
 import { ProductsPagination } from "@components/ProductsPagination";
+import { URL_OPTIONAL_SEARCH } from "@consts/url";
 import { useProductsQuery } from "@hooks/useProductsQuery";
-
-import { useState } from "react";
+import { useSearchParams } from "react-router";
 
 export const Home = () => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = Number(searchParams.get("page") ?? "1");
 
   const limit = 30;
+  const searchValue = searchParams.get(URL_OPTIONAL_SEARCH) ?? "";
+
+  const setPage = (page: number) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("page", page.toString());
+    setSearchParams(params);
+  };
 
   const {
     data,
@@ -19,15 +27,18 @@ export const Home = () => {
     fetchStatus, // индикация загрузки
     error,
     isError,
-  } = useProductsQuery({ page: currentPage, limit });
+  } = useProductsQuery({
+    page,
+    limit,
+    searchValue,
+  });
 
-  if (!data) return;
+  if (!data) return null;
 
   const products = data.products;
   const totalProducts = data.total;
 
   const totalPage = Math.ceil(totalProducts / limit);
-  console.log(products);
 
   return (
     <div>
@@ -49,11 +60,7 @@ export const Home = () => {
           <CardItem key={product.id} product={product} />
         ))}
       </HStack>
-      <ProductsPagination
-        page={currentPage}
-        setPage={setCurrentPage}
-        totalPage={totalPage}
-      />
+      <ProductsPagination page={page} setPage={setPage} totalPage={totalPage} />
     </div>
   );
 };
