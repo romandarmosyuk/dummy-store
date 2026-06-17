@@ -5,6 +5,7 @@ import { SelectCategories } from "@components/SelectCategories";
 import { URL_OPTIONAL_SEARCH } from "@consts/url";
 import { useProductsQuery } from "@hooks/useProductsQuery";
 import { useSearchParams } from "react-router";
+import { EmptyResponse } from "./EmptyState";
 
 export const Home = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -39,11 +40,12 @@ export const Home = () => {
 
   const products = data.products;
   const totalProducts = data.total;
+  if (totalProducts === 0) return <EmptyResponse />;
 
   const totalPage = Math.ceil(totalProducts / limit);
 
   return (
-    <VStack py="15px" as="main">
+    <VStack py="15px">
       {isLoading && <div>Loading...</div>}
       {isPending && <div>Pending ...</div>}
       {isFetching && <div>Fetching...</div>}
