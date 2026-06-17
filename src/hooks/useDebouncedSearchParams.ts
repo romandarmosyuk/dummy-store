@@ -33,6 +33,7 @@ export const useDebouncedSearchParams = ({
       if (!value.trim()) {
         params.delete(key);
       } else {
+        params.delete("category");
         params.set(key, value);
       }
 
