@@ -1,11 +1,11 @@
 import { HStack, VStack } from "@chakra-ui/react";
 import { CardItem } from "@components/CardItem";
 import { ProductsPagination } from "@components/ProductsPagination";
-import { SelectCategories } from "@components/SelectCategories";
 import { URL_OPTIONAL_SEARCH } from "@consts/url";
 import { useProductsQuery } from "@hooks/useProductsQuery";
 import { useSearchParams } from "react-router";
 import { EmptyResponse } from "./EmptyState";
+import { ProductFilter } from "@components/ProductFilter";
 
 export const Home = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -13,6 +13,7 @@ export const Home = () => {
   const category = searchParams.get("category") ?? "";
   const limit = 30;
   const searchValue = searchParams.get(URL_OPTIONAL_SEARCH) ?? "";
+  const sortBy = searchParams.get("sortBy") ?? "";
 
   const setPage = (page: number) => {
     const params = new URLSearchParams(searchParams);
@@ -32,8 +33,9 @@ export const Home = () => {
   } = useProductsQuery({
     page,
     limit,
-    searchValue,
+    search: searchValue,
     category,
+    sortBy,
   });
 
   if (!data) return null;
@@ -45,11 +47,11 @@ export const Home = () => {
   const totalPage = Math.ceil(totalProducts / limit);
 
   return (
-    <VStack py="15px">
+    <VStack py="15px" alignItems="flex-start">
       {isLoading && <div>Loading...</div>}
       {isPending && <div>Pending ...</div>}
       {isFetching && <div>Fetching...</div>}
-      <SelectCategories />
+      <ProductFilter />
       <HStack
         wrap="wrap"
         justifyContent="center"

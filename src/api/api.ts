@@ -1,3 +1,4 @@
+import type { ProductFilters } from "@interfaces/ProductFilters";
 import type { ProductsResponse } from "@interfaces/Products";
 import axios from "axios";
 
@@ -5,32 +6,29 @@ export const api = axios.create({
   baseURL: "https://dummyjson.com",
 });
 
-export function getProducts({
-  limit,
-  page,
-  q,
-  category,
-}: {
-  limit: number;
-  page: number;
-  q: string;
-  category: string;
-}): Promise<ProductsResponse> {
+export function getProducts(
+  filters: ProductFilters,
+): Promise<ProductsResponse> {
+  const { page, limit, search: q, category, sortBy, order } = filters;
   const skip = (page - 1) * limit;
 
-  if (q.trim()) {
-    return api
-      .get("/products/search", { params: { limit, skip, q } })
-      .then((res) => res.data);
+  const params = {
+    limit,
+    skip,
+    ...(q && { q }),
+    ...(sortBy && { sortBy }),
+    ...(order && { order }),
+  };
+
+  let endpoint = "/product";
+
+  if (q?.trim()) {
+    endpoint = "/products/search";
   } else if (category) {
-    return api
-      .get(`/products/category/${category}`, { params: { limit, skip } })
-      .then((res) => res.data);
-  } else {
-    return api
-      .get("/products", { params: { limit, skip } })
-      .then((res) => res.data);
+    endpoint = `/products/category/${category}`;
   }
+
+  return api.get(endpoint, { params }).then((res) => res.data);
 }
 
 export function getCategories() {
