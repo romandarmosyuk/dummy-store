@@ -4,7 +4,7 @@ import { useProductsQuery } from "@hooks/useProductsQuery";
 import { EmptyResponse } from "./EmptyState";
 import { ProductFilter } from "@components/ProductFilter";
 import { useProductFilters } from "@hooks/useProductsFilters";
-import { Container, HStack, VStack } from "@chakra-ui/react";
+import { Container, HStack, Spinner, VStack } from "@chakra-ui/react";
 
 export const Home = () => {
   const { page, category, limit, search, sortBy, order } = useProductFilters();
@@ -13,11 +13,11 @@ export const Home = () => {
     data,
     isLoading,
     isFetching,
-    isPending,
+    //  isPending,
+    error,
+    isError,
     //  status, // статус запроса
     //  fetchStatus, // индикация загрузки
-    //  error,
-    //  isError,
   } = useProductsQuery({
     page,
     limit,
@@ -27,18 +27,17 @@ export const Home = () => {
     order,
   });
 
+  if (isLoading) return <Spinner display="flex" m="auto" />;
+  if (isError) return <div>Error: {error.message}</div>;
+
   if (!data) return null;
 
-  const products = data.products;
-  const totalProducts = data.total;
-  if (totalProducts === 0) return <EmptyResponse />;
+  const { products, total } = data;
+  if (total === 0) return <EmptyResponse />;
 
   return (
     <Container>
       <VStack py="15px" alignItems="flex-start">
-        {isLoading && <div>Loading...</div>}
-        {isPending && <div>Pending ...</div>}
-        {isFetching && <div>Fetching...</div>}
         <ProductFilter />
         <HStack
           wrap="wrap"
@@ -55,7 +54,7 @@ export const Home = () => {
             />
           ))}
         </HStack>
-        <ProductsPagination totalProducts={totalProducts} />
+        <ProductsPagination total={total} />
       </VStack>
     </Container>
   );

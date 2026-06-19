@@ -5,14 +5,12 @@ import { useProductFilters } from "@hooks/useProductsFilters";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 
 interface ProductsPaginationProps {
-  totalProducts: number;
+  total: number;
 }
 
-export const ProductsPagination = ({
-  totalProducts,
-}: ProductsPaginationProps) => {
+export const ProductsPagination = ({ total }: ProductsPaginationProps) => {
   const { page, limit, setPage } = useProductFilters();
-  const totalPage = Math.ceil(totalProducts / limit);
+  const totalPage = Math.ceil(total / Number(limit));
 
   return (
     <Pagination.Root
