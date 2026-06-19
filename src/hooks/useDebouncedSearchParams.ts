@@ -1,3 +1,4 @@
+import { CATEGORY, PAGE } from "@consts/URLSearchParams";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 
@@ -23,7 +24,7 @@ export const useDebouncedSearchParams = ({
     const timer = setTimeout(() => {
       const params = new URLSearchParams(searchParams);
 
-      if (value !== paramValue) params.set("page", "1");
+      if (value !== paramValue) params.set(PAGE, "1");
       console.log({
         value,
         paramValue,
@@ -33,7 +34,7 @@ export const useDebouncedSearchParams = ({
       if (!value.trim()) {
         params.delete(key);
       } else {
-        params.delete("category");
+        params.delete(CATEGORY);
         params.set(key, value);
       }
 

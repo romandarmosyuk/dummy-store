@@ -1,13 +1,13 @@
 import { Button, Flex, Input, InputGroup, Text } from "@chakra-ui/react";
 import { ColorModeButton } from "@components/ui/color-mode";
-import { URL_OPTIONAL_SEARCH } from "@consts/url";
+import { SEARCH } from "@consts/URLSearchParams";
 import { useDebouncedSearchParams } from "@hooks/useDebouncedSearchParams";
 import { LuSearch } from "react-icons/lu";
 import { Link } from "react-router";
 
 export const Header = () => {
   const { value, setValue } = useDebouncedSearchParams({
-    key: URL_OPTIONAL_SEARCH,
+    key: SEARCH,
     delay: 1000,
   });
 

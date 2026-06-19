@@ -1,19 +1,19 @@
 "use client";
 
 import { ButtonGroup, IconButton, Pagination } from "@chakra-ui/react";
+import { useProductFilters } from "@hooks/useProductsFilters";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 
 interface ProductsPaginationProps {
-  page: number;
-  setPage: (page: number) => void;
-  totalPage: number;
+  totalProducts: number;
 }
 
 export const ProductsPagination = ({
-  page,
-  setPage,
-  totalPage,
+  totalProducts,
 }: ProductsPaginationProps) => {
+  const { page, limit, setPage } = useProductFilters();
+  const totalPage = Math.ceil(totalProducts / limit);
+
   return (
     <Pagination.Root
       count={totalPage}

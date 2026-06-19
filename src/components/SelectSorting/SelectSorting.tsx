@@ -1,5 +1,5 @@
 import { createListCollection, Portal, Select } from "@chakra-ui/react";
-import { useSearchParams } from "react-router";
+import { useProductFilters } from "@hooks/useProductsFilters";
 
 const sortingList = createListCollection({
   items: [
@@ -10,30 +10,15 @@ const sortingList = createListCollection({
 });
 
 export const SelectSorting = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const sortingParam = searchParams.get("sortBy");
-
-  const sorting = sortingParam ? [sortingParam] : [];
-
-  const setValue = (value: string[]) => {
-    const params = new URLSearchParams(searchParams);
-
-    if (value.length === 0) {
-      params.delete("sortBy");
-    } else {
-      params.set("sortBy", value[0]);
-    }
-
-    setSearchParams(params);
-  };
+  const { sortBy, setSortBy } = useProductFilters();
+  const sortByList = sortBy ? [sortBy] : [];
 
   return (
     <Select.Root
       collection={sortingList}
       width="250px"
-      value={sorting}
-      onValueChange={(e) => setValue(e.value)}
+      value={sortByList}
+      onValueChange={(e) => setSortBy(e.value)}
     >
       <Select.HiddenSelect />
       <Select.Control>

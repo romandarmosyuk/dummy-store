@@ -1,29 +1,12 @@
 "use client";
 
 import { Portal, Select, createListCollection } from "@chakra-ui/react";
-import { URL_OPTIONAL_SEARCH } from "@consts/url";
 import { useCategoriesQuery } from "@hooks/useCategoriesQuery";
-import { useSearchParams } from "react-router";
+import { useProductFilters } from "@hooks/useProductsFilters";
 
 export const SelectCategories = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const categoryValue = searchParams.get("category");
-
-  const categoryList = categoryValue ? [categoryValue] : [];
-
-  const setCategory = (category: string[]) => {
-    const params = new URLSearchParams(searchParams);
-    params.set("page", "1");
-    params.delete(URL_OPTIONAL_SEARCH);
-
-    if (category.length === 0) {
-      params.delete("category");
-    } else {
-      params.set("category", category[0]);
-    }
-
-    setSearchParams(params);
-  };
+  const { category, setCategory } = useProductFilters();
+  const categoryList = category ? [category] : [];
   const { data } = useCategoriesQuery();
 
   if (!data) return null;
