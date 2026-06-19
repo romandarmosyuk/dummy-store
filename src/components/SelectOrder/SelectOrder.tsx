@@ -16,7 +16,7 @@ export const SelectOrder = () => {
     <Select.Root
       collection={sortingList}
       disabled={sortBy === "" ? true : false}
-      width="250px"
+      maxW="200px"
       value={orderList}
       onValueChange={(e) => setOrder(e.value)}
     >

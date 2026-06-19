@@ -1,4 +1,11 @@
-import { CATEGORY, ORDER, PAGE, SEARCH, SORTBY } from "@consts/URLSearchParams";
+import {
+  CATEGORY,
+  LIMIT,
+  ORDER,
+  PAGE,
+  SEARCH,
+  SORTBY,
+} from "@consts/URLSearchParams";
 import { useSearchParams } from "react-router";
 
 export const useProductFilters = () => {
@@ -6,7 +13,7 @@ export const useProductFilters = () => {
 
   const page = Number(searchParams.get(PAGE) ?? "1");
   const category = searchParams.get(CATEGORY) ?? "";
-  const limit = 30;
+  const limit = searchParams.get(LIMIT) ?? "30";
   const search = searchParams.get(SEARCH) ?? "";
   const sortBy = searchParams.get(SORTBY) ?? "";
   const order = searchParams.get(ORDER) ?? "";
@@ -55,6 +62,14 @@ export const useProductFilters = () => {
     setSearchParams(params);
   };
 
+  const setLimit = (value: string) => {
+    if (Number(value) >= 5 && Number(value) <= 50) {
+      const params = new URLSearchParams(searchParams);
+      params.set(LIMIT, value);
+      setSearchParams(params);
+    }
+  };
+
   return {
     page,
     category,
@@ -66,5 +81,6 @@ export const useProductFilters = () => {
     setSortBy,
     setCategory,
     setOrder,
+    setLimit,
   };
 };

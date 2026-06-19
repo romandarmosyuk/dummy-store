@@ -18,7 +18,7 @@ export const SelectCategories = () => {
   return (
     <Select.Root
       collection={categories}
-      width="250px"
+      width="200px"
       value={categoryList}
       onValueChange={(e) => setCategory(e.value)}
     >

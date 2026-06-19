@@ -14,7 +14,15 @@ export const useProductsQuery = ({
   order,
 }: ProductFilters) => {
   return useQuery<ProductsResponse>({
-    queryKey: [...PRODUCTS_QUERY_KEY, page, search, category, sortBy, order],
+    queryKey: [
+      ...PRODUCTS_QUERY_KEY,
+      page,
+      search,
+      category,
+      sortBy,
+      order,
+      limit,
+    ],
     queryFn: () =>
       getProducts({ limit, page, search, category, sortBy, order }), // isAuth ? getProduct : skipToken на случай, если enabled не подходит
     staleTime: 1000 * 60,

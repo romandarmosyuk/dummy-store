@@ -16,7 +16,7 @@ export const SelectSorting = () => {
   return (
     <Select.Root
       collection={sortingList}
-      width="250px"
+      maxW="200px"
       value={sortByList}
       onValueChange={(e) => setSortBy(e.value)}
     >

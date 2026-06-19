@@ -10,7 +10,7 @@ export function getProducts(
   filters: ProductFilters,
 ): Promise<ProductsResponse> {
   const { page, limit, search: q, category, sortBy, order } = filters;
-  const skip = (page - 1) * limit;
+  const skip = (page - 1) * Number(limit);
 
   const params = {
     limit,
