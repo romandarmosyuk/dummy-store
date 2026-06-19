@@ -11,10 +11,12 @@ export const useProductsQuery = ({
   search,
   category,
   sortBy,
+  order,
 }: ProductFilters) => {
   return useQuery<ProductsResponse>({
-    queryKey: [...PRODUCTS_QUERY_KEY, page, search, category, sortBy],
-    queryFn: () => getProducts({ limit, page, search, category, sortBy }), // isAuth ? getProduct : skipToken на случай, если enabled не подходит
+    queryKey: [...PRODUCTS_QUERY_KEY, page, search, category, sortBy, order],
+    queryFn: () =>
+      getProducts({ limit, page, search, category, sortBy, order }), // isAuth ? getProduct : skipToken на случай, если enabled не подходит
     staleTime: 1000 * 60,
     placeholderData: keepPreviousData,
     // gcTime: 10000,  время хранения данных в кеше. При зазмонтировании страницы данные удаляются

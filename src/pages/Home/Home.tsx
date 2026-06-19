@@ -1,13 +1,13 @@
-import { HStack, VStack } from "@chakra-ui/react";
 import { CardItem } from "@components/CardItem";
 import { ProductsPagination } from "@components/ProductsPagination";
 import { useProductsQuery } from "@hooks/useProductsQuery";
 import { EmptyResponse } from "./EmptyState";
 import { ProductFilter } from "@components/ProductFilter";
 import { useProductFilters } from "@hooks/useProductsFilters";
+import { HStack, VStack } from "@chakra-ui/react";
 
 export const Home = () => {
-  const { page, category, limit, search, sortBy } = useProductFilters();
+  const { page, category, limit, search, sortBy, order } = useProductFilters();
 
   const {
     data,
@@ -24,6 +24,7 @@ export const Home = () => {
     search,
     category,
     sortBy,
+    order,
   });
 
   if (!data) return null;

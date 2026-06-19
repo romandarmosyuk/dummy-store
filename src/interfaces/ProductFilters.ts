@@ -4,5 +4,5 @@ export interface ProductFilters {
   search?: string;
   category?: string;
   sortBy?: string;
-  order?: "asc" | "desc";
+  order?: string;
 }
