@@ -1,5 +1,5 @@
 import type { ProductFilters } from "@interfaces/ProductFilters";
-import type { ProductsResponse } from "@interfaces/Products";
+import type { Product, ProductsResponse } from "@interfaces/Products";
 import axios from "axios";
 
 export const api = axios.create({
@@ -33,4 +33,8 @@ export function getProducts(
 
 export function getCategories() {
   return api.get<string[]>("/products/category-list").then((res) => res.data);
+}
+
+export function getProduct(id: string) {
+  return api.get<Product>(`/product/${id}`).then((res) => res.data);
 }

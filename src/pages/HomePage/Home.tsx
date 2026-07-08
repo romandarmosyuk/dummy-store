@@ -5,8 +5,9 @@ import { EmptyResponse } from "./EmptyState";
 import { ProductFilter } from "@components/ProductFilter";
 import { useProductFilters } from "@hooks/useProductsFilters";
 import { Container, HStack, Spinner, VStack } from "@chakra-ui/react";
+import { Link } from "react-router";
 
-export const Home = () => {
+export const HomePage = () => {
   const { page, category, limit, search, sortBy, order } = useProductFilters();
 
   const {
@@ -47,11 +48,9 @@ export const Home = () => {
           py="4"
         >
           {products.map((product) => (
-            <CardItem
-              key={product.id}
-              product={product}
-              isFetching={isFetching}
-            />
+            <Link key={product.id} to={`product/${product.id}`} replace>
+              <CardItem product={product} isFetching={isFetching} />
+            </Link>
           ))}
         </HStack>
         <ProductsPagination total={total} />
