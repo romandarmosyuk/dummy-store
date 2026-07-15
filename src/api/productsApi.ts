@@ -1,10 +1,6 @@
 import type { ProductFilters } from "@interfaces/ProductFilters";
 import type { Product, ProductsResponse } from "@interfaces/Products";
-import axios from "axios";
-
-export const api = axios.create({
-  baseURL: "https://dummyjson.com",
-});
+import { api } from "./client";
 
 export function getProducts(
   filters: ProductFilters,

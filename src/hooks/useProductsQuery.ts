@@ -1,4 +1,4 @@
-import { getProducts } from "@api/api";
+import { getProducts } from "@api/productsApi";
 import type { ProductFilters } from "@interfaces/ProductFilters";
 import type { ProductsResponse } from "@interfaces/Products";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";

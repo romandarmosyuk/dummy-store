@@ -25,11 +25,6 @@ export const useDebouncedSearchParams = ({
       const params = new URLSearchParams(searchParams);
 
       if (value !== paramValue) params.set(PAGE, "1");
-      console.log({
-        value,
-        paramValue,
-        changed: value !== paramValue,
-      });
 
       if (!value.trim()) {
         params.delete(key);
