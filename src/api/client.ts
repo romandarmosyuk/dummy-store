@@ -26,9 +26,14 @@ api.interceptors.response.use(
       originalRequest._isRetry = true;
 
       try {
-        const response = await axios.post(`${baseURL}/auth/refresh`, {
-          expiresInMins: 30,
-        });
+        const response = await axios.post(
+          `${baseURL}/auth/refresh`,
+          {
+            refreshToken: localStorage.getItem("refreshToken"),
+            expiresInMins: 30,
+          },
+          { withCredentials: true },
+        );
         localStorage.setItem("token", response.data.accessToken);
         return api.request(originalRequest);
       } catch (e) {

@@ -17,6 +17,7 @@ export default defineConfig({
       "@providers": "/src/providers",
       "@routes": "/src/routes",
       "@utils": "/src/utils",
+      "@data": "/src/data",
     },
   },
 });

@@ -40,10 +40,12 @@ export const Header = () => {
           />
         </InputGroup>
         {isAuth ? (
-          <Avatar.Root shape="full" size="xs">
-            <Avatar.Fallback name={user?.username} />
-            <Avatar.Image src={user?.image} />
-          </Avatar.Root>
+          <Link to="/profile">
+            <Avatar.Root shape="full" size="xs">
+              <Avatar.Fallback name={user?.username} />
+              <Avatar.Image src={user?.image} />
+            </Avatar.Root>
+          </Link>
         ) : (
           <Link to="/auth/login">
             <Button>Log in</Button>
