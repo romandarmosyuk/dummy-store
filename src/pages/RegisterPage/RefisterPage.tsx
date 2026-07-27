@@ -40,7 +40,7 @@ export const RegisterPage = () => {
   });
 
   return (
-    <form onSubmit={onSubmit}>
+    <form autoComplete="off" onSubmit={onSubmit}>
       <Stack gap={4} maxW="sm">
         <Field.Root invalid={!!errors.username} required>
           <Field.Label>Username</Field.Label>

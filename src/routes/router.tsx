@@ -4,6 +4,7 @@ import { AuthLayout } from "@layouts/AuthLayout";
 import { MainLayout } from "@layouts/MainLayout";
 import { CartPage } from "@pages/CartPage";
 import { HomePage } from "@pages/HomePage";
+import { NotFoundPage } from "@pages/NotFoundPage";
 import { ProductPage } from "@pages/ProductPage";
 import { ProfilePage } from "@pages/ProfilePage/Profile";
 import { RegisterPage } from "@pages/RegisterPage";
@@ -42,4 +43,5 @@ export const router = createBrowserRouter([
       },
     ],
   },
+  { path: "*", Component: NotFoundPage },
 ]);
