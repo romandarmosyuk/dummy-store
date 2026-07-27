@@ -4,7 +4,7 @@ import { PasswordInput } from "@components/ui/password-input";
 import { useLoginMutation } from "@hooks/useLoginMutation";
 import type { LoginParams } from "@interfaces/Login";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 export const Login = () => {
   const {
@@ -43,6 +43,7 @@ export const Login = () => {
           Войти
         </Button>
         {mutation.error ? <div>Неверный логин или пароль</div> : null}
+        <Link to="/auth/register">Нет аккаунта? Зарегистрируйтесь</Link>
       </Stack>
     </form>
   );

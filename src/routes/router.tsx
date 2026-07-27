@@ -6,6 +6,7 @@ import { CartPage } from "@pages/CartPage";
 import { HomePage } from "@pages/HomePage";
 import { ProductPage } from "@pages/ProductPage";
 import { ProfilePage } from "@pages/ProfilePage/Profile";
+import { RegisterPage } from "@pages/RegisterPage";
 import { createBrowserRouter } from "react-router";
 
 export const router = createBrowserRouter([
@@ -18,7 +19,10 @@ export const router = createBrowserRouter([
       {
         path: "auth",
         Component: AuthLayout,
-        children: [{ path: "login", Component: Login }],
+        children: [
+          { path: "login", Component: Login },
+          { path: "register", Component: RegisterPage },
+        ],
       },
       {
         path: "profile",
@@ -30,7 +34,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "cart",
-        element: <CartPage />,
+        element: (
+          <ProtectedRoute>
+            <CartPage />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

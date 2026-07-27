@@ -50,14 +50,12 @@ export const Header = () => {
                 <Avatar.Image src={user?.image} />
               </Avatar.Root>
             </Link>
-          </HStack>
-        ) : (
-          <>
-            <Button onClick={() => navigate("/auth/login")}>Log in</Button>
             <Link to="/cart">
               <CartButton />
             </Link>
-          </>
+          </HStack>
+        ) : (
+          <Button onClick={() => navigate("/auth/login")}>Log in</Button>
         )}
 
         <ColorModeButton />
