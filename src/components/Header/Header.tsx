@@ -3,16 +3,18 @@ import {
   Button,
   Container,
   Flex,
+  HStack,
   Input,
   InputGroup,
   Text,
 } from "@chakra-ui/react";
+import { CartButton } from "@components/CartButton";
 import { ColorModeButton } from "@components/ui/color-mode";
 import { SEARCH } from "@consts/URLSearchParams";
 import { useAuth } from "@hooks/useAuth";
 import { useDebouncedSearchParams } from "@hooks/useDebouncedSearchParams";
 import { LuSearch } from "react-icons/lu";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 export const Header = () => {
   const { value, setValue } = useDebouncedSearchParams({
@@ -21,6 +23,7 @@ export const Header = () => {
   });
 
   const { user, isAuth } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <Container as="header" bg="gray.100">
@@ -40,17 +43,23 @@ export const Header = () => {
           />
         </InputGroup>
         {isAuth ? (
-          <Link to="/profile">
-            <Avatar.Root shape="full" size="xs">
-              <Avatar.Fallback name={user?.username} />
-              <Avatar.Image src={user?.image} />
-            </Avatar.Root>
-          </Link>
+          <HStack gap="10px">
+            <Link to="/profile">
+              <Avatar.Root shape="full" size="xs">
+                <Avatar.Fallback name={user?.username} />
+                <Avatar.Image src={user?.image} />
+              </Avatar.Root>
+            </Link>
+          </HStack>
         ) : (
-          <Link to="/auth/login">
-            <Button>Log in</Button>
-          </Link>
+          <>
+            <Button onClick={() => navigate("/auth/login")}>Log in</Button>
+            <Link to="/cart">
+              <CartButton />
+            </Link>
+          </>
         )}
+
         <ColorModeButton />
       </Flex>
     </Container>

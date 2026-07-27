@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { type ComponentType } from "react";
 import { AuthProvider } from "./AuthProvider";
+import { CartProvider } from "./CartProvider";
 
 const queryClient = new QueryClient({
   //   defaultOptions: {
@@ -19,7 +20,9 @@ export function withProviders(Component: ComponentType) {
         <ReactQueryDevtools initialIsOpen={false} />
         <Provider>
           <AuthProvider>
-            <Component />
+            <CartProvider>
+              <Component />
+            </CartProvider>
           </AuthProvider>
         </Provider>
       </QueryClientProvider>

@@ -19,7 +19,6 @@ export const ProfilePage = () => {
   const { data: user } = useUserQuery();
 
   if (!user) return null;
-  console.log(user);
 
   const handleClick = () => {
     logout();

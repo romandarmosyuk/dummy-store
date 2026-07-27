@@ -2,6 +2,7 @@ import { Login } from "@components/Login";
 import { ProtectedRoute } from "@components/ProtectedRoute";
 import { AuthLayout } from "@layouts/AuthLayout";
 import { MainLayout } from "@layouts/MainLayout";
+import { CartPage } from "@pages/CartPage";
 import { HomePage } from "@pages/HomePage";
 import { ProductPage } from "@pages/ProductPage";
 import { ProfilePage } from "@pages/ProfilePage/Profile";
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
             <ProfilePage />
           </ProtectedRoute>
         ),
+      },
+      {
+        path: "cart",
+        element: <CartPage />,
       },
     ],
   },
