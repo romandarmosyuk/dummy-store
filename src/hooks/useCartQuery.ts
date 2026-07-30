@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "./useAuth";
 import { cartApi } from "@api/cartApi";
-import type { CartsResponse } from "@interfaces/Cart";
+import type { Cart } from "@interfaces/Cart";
 
 export const useCartQuery = () => {
   const { user } = useAuth();
 
-  return useQuery<CartsResponse>({
+  return useQuery<Cart>({
     queryKey: ["cart", user?.id],
     queryFn: () => cartApi.getCart(user?.id),
     enabled: !!user,

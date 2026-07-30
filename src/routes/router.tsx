@@ -1,4 +1,5 @@
 import { Login } from "@components/Login";
+import { LoginDemo } from "@components/LoginDemo";
 import { ProtectedRoute } from "@components/ProtectedRoute";
 import { AuthLayout } from "@layouts/AuthLayout";
 import { MainLayout } from "@layouts/MainLayout";
@@ -8,7 +9,7 @@ import { NotFoundPage } from "@pages/NotFoundPage";
 import { ProductPage } from "@pages/ProductPage";
 import { ProfilePage } from "@pages/ProfilePage/Profile";
 import { RegisterPage } from "@pages/RegisterPage";
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 
 export const router = createBrowserRouter([
   {
@@ -23,25 +24,21 @@ export const router = createBrowserRouter([
         children: [
           { path: "login", Component: Login },
           { path: "register", Component: RegisterPage },
+          { path: "logindemo", Component: LoginDemo },
         ],
       },
       {
-        path: "profile",
-        element: (
-          <ProtectedRoute>
-            <ProfilePage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "cart",
-        element: (
-          <ProtectedRoute>
-            <CartPage />
-          </ProtectedRoute>
-        ),
+        Component: ProtectedRoute,
+        children: [
+          { path: "profile", Component: ProfilePage },
+          { path: "cart", Component: CartPage },
+        ],
       },
     ],
   },
-  { path: "*", Component: NotFoundPage },
+  {
+    path: "*",
+    element: <Navigate to="/404" replace />,
+  },
+  { path: "404", Component: NotFoundPage },
 ]);

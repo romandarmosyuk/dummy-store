@@ -1,9 +1,9 @@
 import { Badge, Box, IconButton } from "@chakra-ui/react";
-import { useCart } from "@hooks/useCart";
+import { useCartQuery } from "@hooks/useCartQuery";
 import { FiShoppingCart } from "react-icons/fi";
 
 export const CartButton = () => {
-  const { cart } = useCart();
+  const { data: cart } = useCartQuery();
 
   const counter = cart?.totalQuantity ?? 0;
 

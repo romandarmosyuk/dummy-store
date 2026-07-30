@@ -3,7 +3,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { type ComponentType } from "react";
 import { AuthProvider } from "./AuthProvider";
-import { CartProvider } from "./CartProvider";
 
 const queryClient = new QueryClient({
   //   defaultOptions: {
@@ -20,12 +19,32 @@ export function withProviders(Component: ComponentType) {
         <ReactQueryDevtools initialIsOpen={false} />
         <Provider>
           <AuthProvider>
-            <CartProvider>
-              <Component />
-            </CartProvider>
+            <Component />
           </AuthProvider>
         </Provider>
       </QueryClientProvider>
     );
   };
 }
+
+export function withQueryClient(Component: ComponentType) {
+  return function WrappedApp() {
+    return (
+      <QueryClientProvider client={queryClient}>
+        <Component />
+      </QueryClientProvider>
+    );
+  };
+}
+
+export function withAuth(Component: ComponentType) {
+  return function WrappedApp() {
+    return (
+      <AuthProvider>
+        <Component />
+      </AuthProvider>
+    );
+  };
+}
+
+// [withQueryClient, withAuth].reduceRight();

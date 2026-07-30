@@ -1,13 +1,13 @@
 import { Box, Button, Flex, Heading, Stack } from "@chakra-ui/react";
-import { useCart } from "@hooks/useCart";
 import { CartItem } from "./CartItem";
 import { CartSummary } from "./CartSummary";
 import { EmptyCart } from "./EmptyCart";
 import { Link } from "react-router";
 import { useRemoveProductMutation } from "@hooks/useRemoveProductMutation";
+import { useCartQuery } from "@hooks/useCartQuery";
 
 export const CartPage = () => {
-  const { cart, isPending } = useCart();
+  const { data: cart, isPending } = useCartQuery();
   const removeProductMutation = useRemoveProductMutation();
 
   if (isPending) return <Heading>Loading...</Heading>;
